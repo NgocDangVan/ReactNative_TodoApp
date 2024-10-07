@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Alert, Button, FlatList, Keyboard, Pressable, StyleSheet, Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
-
+import {AntDesign} from '@expo/vector-icons';
 interface ITodo {
   id: number,
   name: string
@@ -36,8 +36,8 @@ export default function App() {
   }
 
   const deleteTodo = (id: number) => {
-    const newTodo = listTodo.filter(item => item.id !== id);
-    setListTodo(newTodo);
+    // const newTodo = listTodo.filter(item => item.id !== id);
+    // setListTodo(newTodo);
   }
 
   return (
@@ -47,7 +47,7 @@ export default function App() {
       }>
       <View style={styles.container}>
         <Text style={styles.header}>Todo App</Text>
-        <View style={styles.body}>
+        <View style={styles.form}>
           <TextInput 
             value={todo}
             style={styles.todoInput}
@@ -62,7 +62,7 @@ export default function App() {
 
           </Button>
         </View>
-        <View style={styles.body}>
+        <View style={styles.todo}>
           <FlatList
             data={listTodo}
             keyExtractor={item => item.id + ""}
@@ -72,9 +72,12 @@ export default function App() {
                   onPress={() => deleteTodo(item.id)}
                   style = {({pressed}) => ({opacity: pressed ? 0.5 : 1})}
                 >
-                  <Text 
-                    style = {styles.toDoItem}
-                  >{item.name}</Text>
+                  <View style={styles.groupTodo}>
+                    <Text 
+                      style = {styles.toDoItem}
+                    >{item.name}</Text>
+                    <AntDesign name='close' size={24} color="black"></AntDesign>
+                  </View>
                 </Pressable>
                 
               )
@@ -84,21 +87,40 @@ export default function App() {
         </View>
       </View>
     </TouchableWithoutFeedback>
-    
   );
 }
 
 const styles = StyleSheet.create({
+  groupTodo: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    borderWidth: 1,
+    borderStyle: "dashed",
+    marginBottom: 15,
+    marginHorizontal: 10,
+    padding: 10,
+  },
+  container: {
+    paddingTop: 50,
+    borderWidth: 1,
+    borderColor: "red",
+    flex: 1,
+    backgroundColor: '#fff',
+  },
   header: {
     backgroundColor: 'orange',
     paddingHorizontal: 20,
     textAlign: "center",
-    fontSize: 50
+    fontSize: 50,
+    flex: 1
   },
-  container: {
-    paddingTop: 50,
-    flex: 1,
-    backgroundColor: '#fff',
+  form: {
+    flex: 2,
+    marginBottom: 20,
+  },
+  todo: {
+    flex: 8,
   },
   todoInput: {
     borderBottomWidth: 1,
@@ -108,13 +130,10 @@ const styles = StyleSheet.create({
   },
   toDoItem: {
     fontSize: 20,
-    borderWidth: 1,
-    borderStyle: "dashed",
-    marginBottom: 20,
-    padding: 10
   },
   body: {
     paddingHorizontal: 10,
-    marginBottom: 20
+    marginBottom: 20,
+    flex: 1
   }
 });
