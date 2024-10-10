@@ -6,7 +6,7 @@ import DetailScreen from './components/review/detail';
 import AboutScreen from './components/review/about';
 import { NavigationContainer } from '@react-navigation/native';
 import 'react-native-gesture-handler';
-
+import { SafeAreaView } from 'react-native-safe-area-context';
 interface ITodo {
   id: number,
   name: string
@@ -115,9 +115,11 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <AppNavigation></AppNavigation>
-    </NavigationContainer>
+    <SafeAreaView style={{flex: 1}}>
+      <NavigationContainer>
+        <AppNavigation></AppNavigation>
+      </NavigationContainer>
+    </SafeAreaView>
   );
 }
 

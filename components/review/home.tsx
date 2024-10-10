@@ -27,7 +27,7 @@ const HomeScreen = () => {
 
     return (
         <View>
-            <Text style={{fontSize: 30}}>Review list</Text>
+            <Text style={{fontSize: 30, padding: 10}}>Review list</Text>
             <View>
                 <FlatList
                     data={reviews}
