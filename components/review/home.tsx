@@ -1,7 +1,8 @@
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { View, Text, Button, FlatList, TouchableOpacity, StyleSheet } from "react-native"
-import AppHeader from "../navigation/app.header";
+import { AntDesign } from '@expo/vector-icons';
+import CreateModel from "../create.model";
 
 interface IReview {
     id: number,
@@ -25,9 +26,19 @@ const HomeScreen = () => {
         }
     });
 
+    const [modalVisible, setModalVisible] = useState(false);
+
     return (
         <View>
             <Text style={{fontSize: 30, padding: 10}}>Review list</Text>
+            <View style={{alignItems: "center"}}>
+                <AntDesign
+                    name="plussquareo"
+                    size={30}
+                    color="orange"
+                    onPress={() => setModalVisible(true)}
+                ></AntDesign>
+            </View>
             <View>
                 <FlatList
                     data={reviews}
@@ -45,6 +56,13 @@ const HomeScreen = () => {
 
                 </FlatList>
             </View>
+
+            <CreateModel
+                modalVisible = {modalVisible}
+                setModalVisible ={setModalVisible}
+            >
+
+            </CreateModel>
         </View>
     );
 }
